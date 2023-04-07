@@ -1,0 +1,53 @@
+@model List<Product>
+
+@{
+    ViewBag.Title = "Все товары";
+    Layout = "_Layout";
+}
+
+@{
+    if (!Model.Any())
+    {
+        <h2>Список товаров пуст</h2>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach(var product in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@product.Image" class="card-img-top" alt="@product.Model">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Category.CategoryName @product.ProductName @product.Model</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p>Производитель: @product.Brand.BrandName</p>
+                        <p>Цена: @product.Price</p>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a class="my-3 btn btn-success"
+                               asp-action=""
+                               asp-controller=""
+                               asp-route-id="@product.Id">
+                                Заказать
+                            </a>
+                        </div>
+                        <div class="col">
+                            <a class="my-3 btn btn-outline-info"
+                               asp-action=""
+                               asp-controller=""
+                               asp-route-id="@product.Id">
+                                Детали
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Последнее обновление @product.DateOfUpdate</small>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    }
+}

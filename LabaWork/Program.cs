@@ -1,6 +1,7 @@
 using LabaWork.Models;
 using LabaWork.Services;
 using LabaWork.Services.Abstract;
+using LabaWork.Validators;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<ProductContext>(option => option.UseSqlite(connect
 builder.Services.AddScoped<IProductService, IProductService>();    
 builder.Services.AddScoped<ISectionService<Category>, CategoryService>();    
 builder.Services.AddScoped<ISectionService<Brand>, BrandService>();
+builder.Services.AddScoped<ProductValidator>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Product}/{action=AllProducts}/{id?}");
 
 app.Run();
