@@ -1,8 +1,13 @@
+using FluentValidation.Results;
+
 namespace LabaWork.Models;
 
 public class ErrorViewModel
 {
-    public string? RequestId { get; set; }
+    public List<ValidationFailure> Errors { get; set; }
 
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    public ErrorViewModel()
+    {
+        Errors = new List<ValidationFailure>();
+    }
 }
