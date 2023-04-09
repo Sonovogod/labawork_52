@@ -6,7 +6,8 @@ namespace LabaWork.Validators;
 
 public class SectionValidator : AbstractValidator<ISection>
 {
-    public SectionValidator(ISectionService<ISection> sectionService)
+    public ISectionService<ISection> _sectionService { get; set; }
+    public SectionValidator( )
     {
         RuleFor(section => section.Name)
             .NotNull().WithMessage("Поле не должно быть пустым")
@@ -14,7 +15,7 @@ public class SectionValidator : AbstractValidator<ISection>
             .MaximumLength(20).WithMessage("Поле не должно быть больше 20 символов")
             .Must(name =>
             {
-                if (sectionService.IsExist(name.Normalize()))
+                if (_sectionService.IsExist(name.Normalize()))
                     return false;
                 return true;
             });
