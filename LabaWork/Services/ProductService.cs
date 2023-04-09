@@ -28,9 +28,12 @@ public class ProductService : IProductService
         => _db.Products.FirstOrDefault(x => x.Id == id);
 
 
-    public void CreateProduct(Product? product)
+    public void Add(Product? product)
     {
         if (product == null) return;
+        product.NormalizeName = product.ProductName.Trim().ToUpper();
+        product.DateOfCreate = DateTime.Now;
+        product.DateOfUpdate = DateTime.Now;
         _db.Products.Add(product);
         _db.SaveChanges();
     }
@@ -38,6 +41,7 @@ public class ProductService : IProductService
     public void EditProduct(Product? product)
     {
         if (product == null) return;
+        product.DateOfUpdate = DateTime.Now;
         _db.Products.Update(product);
         _db.SaveChanges();
     }

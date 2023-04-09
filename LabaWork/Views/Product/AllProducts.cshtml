@@ -17,15 +17,15 @@
         {
             <div class="col">
                 <div class="card h-100">
-                    <img src="@product.Image" class="card-img-top" alt="@product.Model">
+                    <img src="@product.Image" class="p-2 card-img-top" alt="@product.Model">
                     <div class="card-body">
                         <h5 class="card-title">@product.Category.Name @product.ProductName @product.Model</h5>
                         <p class="card-text">@product.Description</p>
                         <p>Производитель: @product.Brand.Name</p>
                         <p>Цена: @product.Price</p>
                     </div>
-                    <div class="row">
-                        <div class="col">
+                    <div class="row px-3">
+                        <div class="col-auto">
                             <a class="my-3 btn btn-success"
                                asp-action=""
                                asp-controller=""
@@ -33,7 +33,7 @@
                                 Заказать
                             </a>
                         </div>
-                        <div class="col">
+                        <div class="col-auto">
                             <a class="my-3 btn btn-outline-info"
                                asp-action=""
                                asp-controller=""

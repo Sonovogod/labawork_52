@@ -19,6 +19,7 @@ builder.Services.AddScoped<CategoryValidator>();
 builder.Services.AddScoped<BrandValidator>();
 builder.Services.AddScoped<BrandAndErrors>();
 builder.Services.AddScoped<CategoryAndErrors>();
+builder.Services.AddScoped<CreateProduct>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
