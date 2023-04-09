@@ -68,4 +68,57 @@ public class ProductController : Controller
         _createProduct.Categories = _categoryService.GetAll();
         _createProduct.Brands = _brandService.GetAll();
     }
+
+    [HttpGet]
+    public IActionResult About(int id)
+    {
+        var product = _productService.GetById(id);
+        if (product is null) return NotFound();
+
+        return View(product);
+    }
+    
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        Product? product = _productService.GetById(id);
+        if (product is null) return NotFound();
+        _productService.DeleteProduct(product);
+        
+        return RedirectToAction("AllProducts");
+    }
+    
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        Product? product = _productService.GetById(id);
+        if (product is null) return NotFound();
+
+        GetBrandsAndCategories();
+        _createProduct.Product = product;
+        return View(_createProduct);
+    }
+    
+    [HttpPost]
+    public IActionResult Edit(Product? product)
+    {
+        if (product == null) return NotFound();
+        var validResult = _productValidator.Validate(product);
+        if (validResult.IsValid)
+        {
+            _productService.EditProduct(product);
+        }
+        else
+        {
+            Product? newProduct = _productService.GetById(product.Id);
+            if (newProduct is null) return NotFound();
+            
+            GetBrandsAndCategories();
+            _createProduct.Product = newProduct;
+            _createProduct.ErrorViewModel.Errors = validResult.Errors;
+            return View(_createProduct);
+        }
+
+        return RedirectToAction("AllProducts");
+    }
 }
