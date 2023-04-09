@@ -4,7 +4,27 @@
     ViewBag.Title = "Добавить категорию";
     Layout = "_Layout";
 }
-
+@if (Model.Categories.Any())
+{
+    <h2>Существующие категории</h2>
+    <table class="table" style="width: 100%;">
+        <tr>
+            <th>#ID</th>
+            <th>Наименование</th>
+            <th>Действие</th>
+        </tr>
+    @foreach (var category in Model.Categories)
+    {
+        <tr>
+            <td>@category.Id</td>
+            <td>@category.Name</td>
+            <td><a asp-controller="Category"
+                   asp-action="Delete"
+                   asp-route-id="@category.Id" class="my-3 btn btn-danger d-inline">Удалить</a></td>
+        </tr>
+    }
+    </table>
+}
 <h2>Заполните поле для добавления новой категории</h2>
 <div class="row">
     <div class="col-md-6">

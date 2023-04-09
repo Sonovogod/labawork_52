@@ -23,6 +23,7 @@ public class CategoryController : Controller
     [HttpGet]
     public IActionResult CreateCategory()
     {
+        _categoryAndErrors.Categories = _categoryService.GetAll();
         return View(_categoryAndErrors);
     }
     
@@ -39,10 +40,21 @@ public class CategoryController : Controller
         }
         else
         {
+            _categoryAndErrors.Categories = _categoryService.GetAll();
             _categoryAndErrors.ErrorViewModel.Errors = validResult.Errors;
             return View(_categoryAndErrors);
         }
         
-        return RedirectToAction("AllProducts", "Product");
+        return RedirectToAction("CreateCategory");
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        Category? category = _categoryService.GetById(id);
+        if (category is null) return NotFound();
+        _categoryService.Delete(category);
+
+        return RedirectToAction("CreateCategory");
     }
 }

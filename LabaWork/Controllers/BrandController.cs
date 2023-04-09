@@ -22,6 +22,7 @@ public class BrandController : Controller
     [HttpGet]
     public IActionResult CreateBrand()
     {
+        _brandAndErrors.Brands = _brandService.GetAll();
         return View(_brandAndErrors);
     }
     
@@ -38,10 +39,22 @@ public class BrandController : Controller
         }
         else
         {
+            _brandAndErrors.Brands = _brandService.GetAll();
             _brandAndErrors.ErrorViewModel.Errors = validResult.Errors;
             return View(_brandAndErrors);
         }
         
-        return RedirectToAction("AllProducts", "Product");
+        return RedirectToAction("CreateBrand");
     }
+    
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        Brand? brand = _brandService.GetById(id);
+        if (brand is null) return NotFound();
+        _brandService.Delete(brand);
+
+        return RedirectToAction("CreateBrand");
+    }
+    
 }
