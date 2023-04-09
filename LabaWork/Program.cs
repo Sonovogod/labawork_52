@@ -15,8 +15,10 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISectionService<Category>, CategoryService>();    
 builder.Services.AddScoped<ISectionService<Brand>, BrandService>();
 builder.Services.AddScoped<ProductValidator>();
-builder.Services.AddScoped<SectionValidator>();
-builder.Services.AddScoped<SectionAndErrors>();
+builder.Services.AddScoped<CategoryValidator>();
+builder.Services.AddScoped<BrandValidator>();
+builder.Services.AddScoped<BrandAndErrors>();
+builder.Services.AddScoped<CategoryAndErrors>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

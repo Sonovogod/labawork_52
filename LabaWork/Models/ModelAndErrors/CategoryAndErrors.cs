@@ -1,13 +1,11 @@
-using LabaWork.Models.Abstract;
-
 namespace LabaWork.Models.ModelAndErrors;
 
-public class SectionAndErrors
+public class CategoryAndErrors
 {
     public ErrorViewModel ErrorViewModel { get; set; }
-    public ISection Section { get; set; }
+    public Category Category { get; set; }
 
-    public SectionAndErrors()
+    public CategoryAndErrors()
     {
         ErrorViewModel = new ErrorViewModel();
     }

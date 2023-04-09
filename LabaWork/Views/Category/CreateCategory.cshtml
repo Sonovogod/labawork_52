@@ -1,4 +1,4 @@
-@model SectionAndErrors
+@model CategoryAndErrors
 
 @{
     ViewBag.Title = "Добавить категорию";
@@ -8,15 +8,15 @@
 <h2>Заполните поле для добавления новой категории</h2>
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="CreateCategory" method="post" asp-controller="Section">
-        <div>
-            <label for="name">Наименование категории</label>
-            <input asp-for="Section.Name"
-                   type="text"
-                   class="form-control"
-                   id="name"
-                   placeholder="Ноутбуки">
-        </div>
+        <form asp-action="CreateCategory" method="post" asp-controller="Category">
+            <div class="form-group mb-3">
+                <label for="name">Наименование категории</label>
+                <input asp-for="Category.Name"
+                       type="text"
+                       class="form-control"
+                       id="name"
+                       placeholder="Ноутбуки">
+            </div>
             <button type="submit" class="btn btn-outline-info mt-3">Добавить</button>
         </form>
     </div>

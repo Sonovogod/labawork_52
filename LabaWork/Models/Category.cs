@@ -1,8 +1,6 @@
-using LabaWork.Models.Abstract;
-
 namespace LabaWork.Models;
 
-public class Category : ISection
+public class Category
 {
     public int Id { get; set; }
     public string Name { get; set; }

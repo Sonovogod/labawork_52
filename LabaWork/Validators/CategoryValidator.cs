@@ -1,24 +1,27 @@
 using FluentValidation;
-using LabaWork.Models.Abstract;
-using LabaWork.Services.Abstract;
+using LabaWork.Models;
 
 namespace LabaWork.Validators;
 
-public class SectionValidator : AbstractValidator<ISection>
+public class CategoryValidator : AbstractValidator<Category>
 {
-    public ISectionService<ISection> _sectionService { get; set; }
-    public SectionValidator( )
+    private readonly ProductContext _db;
+    public CategoryValidator(ProductContext db)
     {
+        _db = db;
         RuleFor(section => section.Name)
             .NotNull().WithMessage("Поле не должно быть пустым")
             .MinimumLength(1).WithMessage("Поле не должно быть меньше 1 символа")
             .MaximumLength(20).WithMessage("Поле не должно быть больше 20 символов")
-            .Must(name =>
+        .Must(name =>
+        {
+            if (!string.IsNullOrEmpty(name))
             {
-                if (_sectionService.IsExist(name.Normalize()))
+                if (_db.Categories.Any(x=> x.NormalizeName.Equals(name.Trim().ToUpper())))
                     return false;
-                return true;
-            });
+            }
+            return true;
+        }).WithMessage("Такое название уже есть");
     }
     
 }
