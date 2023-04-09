@@ -19,7 +19,7 @@ public class BrandService : ISectionService<Brand>
     public Brand? GetById(int id)
         => _db.Brands.FirstOrDefault(x=> x.Id == id);
 
-    public void Create(Brand? section)
+    public void Add(Brand? section)
     {
         if (section == null) return;
         _db.Brands.Add(section);
@@ -32,4 +32,8 @@ public class BrandService : ISectionService<Brand>
         _db.Brands.Remove(section);
         _db.SaveChanges();
     }
+
+    public bool IsExist(string name) 
+        => _db.Brands.Any(x => x.NormalizeName.Equals(name));
+    
 }

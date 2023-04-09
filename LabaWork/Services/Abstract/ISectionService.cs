@@ -4,6 +4,7 @@ public interface ISectionService <T>
 {
     public List<T> GetAll();
     public T? GetById(int id);
-    public void Create(T? section);
+    public void Add(T? section);
     public void Delete(T? section);
+    public bool IsExist(string name);
 }

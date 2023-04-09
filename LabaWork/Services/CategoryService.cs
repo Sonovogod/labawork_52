@@ -19,7 +19,7 @@ public class CategoryService : ISectionService<Category>
     public Category? GetById(int id)
         => _db.Categories.FirstOrDefault(x=> x.Id == id);
 
-    public void Create(Category? section)
+    public void Add(Category? section)
     {
         if (section == null) return;
         _db.Categories.Add(section);
@@ -32,4 +32,8 @@ public class CategoryService : ISectionService<Category>
         _db.Categories.Remove(section);
         _db.SaveChanges();
     }
+
+    public bool IsExist(string name)
+        => _db.Categories.Any(x => x.NormalizeName.Equals(name));
+    
 }

@@ -1,4 +1,5 @@
 using LabaWork.Models;
+using LabaWork.Models.ModelAndErrors;
 using LabaWork.Services;
 using LabaWork.Services.Abstract;
 using LabaWork.Validators;
@@ -10,10 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ProductContext>(option => option.UseSqlite(connection));
-builder.Services.AddScoped<IProductService, IProductService>();    
+builder.Services.AddScoped<IProductService, ProductService>();    
 builder.Services.AddScoped<ISectionService<Category>, CategoryService>();    
 builder.Services.AddScoped<ISectionService<Brand>, BrandService>();
 builder.Services.AddScoped<ProductValidator>();
+builder.Services.AddScoped<SectionValidator>();
+builder.Services.AddScoped<SectionAndErrors>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
